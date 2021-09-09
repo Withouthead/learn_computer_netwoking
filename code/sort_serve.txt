@@ -1,0 +1,5 @@
+getaddrinfo();
+socket();
+bind();
+listen();
+/* accept() goes here */
