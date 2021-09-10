@@ -66,6 +66,11 @@ int main(int argc, char *argv[])
     }
     buf[numbytes] = '\0';
     printf("client: recevied '%s'\n", buf);
+    if(send(sockfd, "hello too!!!", 11, 0) == -1)
+    {
+        perror("send");
+    }
+    else printf("Successly send message !\n");
     close(sockfd);
     return 0;
 

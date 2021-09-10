@@ -10,7 +10,7 @@
 #include <arpa/inet.h>
 #include <sys/wait.h>
 #include <signal.h>
-
+#define MAXDATASIZE 100
 #define PORT "3490"
 #define BACKLOG 10
 void sigchld_handler(int s)
@@ -107,6 +107,16 @@ int main()
             if(send(new_fd, "Hello, world!", 13, 0) == -1)
             {
                 perror("send");
+            }
+            char buf[MAXDATASIZE];
+            int numbytes;
+            if((numbytes = recv(new_fd, buf, MAXDATASIZE-1, 0)) == -1)
+            {
+                perror("recv");
+            }
+            else
+            {
+                printf("Have receive message '%s'\n", buf);
             }
             close(new_fd);
             exit(0);
