@@ -49,7 +49,7 @@ int main()
     }
     for(p = servinfo; p != NULL; p = servinfo->ai_next)
     {
-        if((sockfd = socket(p->ai_family, p->ai_socktype, p->ai_protocol) == -1))
+        if((sockfd = socket(p->ai_family, p->ai_socktype, p->ai_protocol)) == -1)
         {
             perror("server: socket");
             continue;
