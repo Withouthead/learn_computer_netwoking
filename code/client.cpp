@@ -6,7 +6,7 @@
 #include <netdb.h>
 #include <sys/types.h>
 #include <arpa/inet.h>
-#define PORT "3490"
+#define PORT "9034"
 #define MAXDATASIZE 100
 void *get_in_addr(sockaddr *sa)
 {
