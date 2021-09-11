@@ -49,6 +49,10 @@ int get_listen_socket()
         break;
     }
     freeaddrinfo(servinfo);
+    if(p == NULL)
+        return -1;
+    if(listen(listener, 10) == -1)
+        return -1;
     return listener;
 }
 
