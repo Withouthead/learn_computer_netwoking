@@ -65,6 +65,7 @@ int get_listener_socket()
 }
 int main()
 {
+    setvbuf (stdout, NULL, _IONBF, 0);
     fd_set set_master;
     fd_set read_fds;
     int fdmax = 0;
