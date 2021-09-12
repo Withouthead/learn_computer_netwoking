@@ -111,6 +111,7 @@ int main()
                         if(newfd > fdmax)
                             fdmax = newfd;
                         printf("selectserver: new connect from %s on socket %d", inet_ntop(remoteaddr.ss_family, get_in_addr((sockaddr *)&remoteaddr), remoteIP, INET6_ADDRSTRLEN), newfd);
+                        send(newfd, "Hello!", 5, 0);
                     }
                 }
                 else
