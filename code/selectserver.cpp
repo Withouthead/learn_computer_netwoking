@@ -24,6 +24,7 @@ int get_listener_socket()
     int listener;
     int rv;
     int yes = 1;
+    memset(&hints, 0, sizeof hints);
     hints.ai_family = AF_UNSPEC;
     hints.ai_flags = AI_PASSIVE;
     hints.ai_socktype = SOCK_STREAM;
