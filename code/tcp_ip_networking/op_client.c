@@ -5,6 +5,11 @@
 #include <arpa/inet.h>
 #include <sys/socket.h>
 #define BUF_SIZE 1024
+void error_handler(char *msg)
+{
+    fprintf(stderr, "%s\n", msg);
+    exit(-1);
+}
 int main(int argc, char *argv[])
 {
     if(argc != 3)
@@ -27,7 +32,7 @@ int main(int argc, char *argv[])
 
     if(connect(sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0)
     {
-        return -1;
+        error_handler("can't connect remote server");
     }
     while(1)
     {
@@ -43,7 +48,9 @@ int main(int argc, char *argv[])
         {
             int recv_cnt = read(sock, &message[recv_len], BUF_SIZE - 1);
             if(recv_cnt < 0)
-                return -1;
+            {
+                error_handler("can't read from remote server");
+            }
             recv_len += recv_cnt;
         }
         message[recv_len] = 0;
