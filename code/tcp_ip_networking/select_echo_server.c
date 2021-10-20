@@ -53,11 +53,15 @@ int main(int argc, char *argv[])
         struct timeval timeout;
         timeout.tv_sec = 5;
         timeout.tv_usec = 0;
-        printf("waiting to new connect\n");
+        
         int select_state = select(fd_max + 1, &readers, 0, 0, &timeout);
-        if(select < 0)
+        if(select_state < 0)
         {
             error_hanlder("select error");
+        }
+        if(select_state == 0)
+        {
+            printf("waiting to new connect\n");
         }
         if(select_state > 0)
         {

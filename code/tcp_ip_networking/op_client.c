@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
     memset(&serv_addr, 0, sizeof(serv_addr));
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_addr.s_addr = inet_addr(argv[1]);
-    serv_addr.sin_port = htons(atoi(argv[1]));
+    serv_addr.sin_port = htons(atoi(argv[2]));
 
     if(connect(sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0)
     {
@@ -42,6 +42,7 @@ int main(int argc, char *argv[])
         {
             break;
         }
+        printf("sending message to remote server\n");
         int str_len = write(sock, message, strlen(message));
         int recv_len = 0;
         while(recv_len < str_len)
