@@ -71,6 +71,7 @@ int main(int argc, char *argv[])
                 {
                     continue;
                 }
+                printf("connect request!\n");
                 if(i == server_sock)
                 {
                     int client_sock = accept(server_sock, (struct sockaddr*)&client_addr, &addr_len);
