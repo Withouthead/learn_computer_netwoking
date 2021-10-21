@@ -53,8 +53,8 @@ int main(int argc, char *argv[])
         struct timeval timeout;
         timeout.tv_sec = 5;
         timeout.tv_usec = 0;
-        
-        int select_state = select(fd_max + 1, &readers, 0, 0, &timeout);
+        cp_readers = readers;
+        int select_state = select(fd_max + 1, &cp_readers, 0, 0, &timeout);
         if(select_state < 0)
         {
             error_hanlder("select error");
@@ -65,6 +65,7 @@ int main(int argc, char *argv[])
         }
         if(select_state > 0)
         {
+            printf("select_state has changed\n");
             for(int i = 0; i <= fd_max; i++)
             {
                 if(!FD_ISSET(i, &cp_readers))
@@ -81,7 +82,9 @@ int main(int argc, char *argv[])
                     }
                     printf("new connect has been set up, ip is %s\n", inet_ntoa(client_addr.sin_addr));
                     FD_SET(client_sock, &readers);
-                    fd_max = fd_max > i ? fd_max : i;
+                    printf("old fd_max :%d\n", fd_max);
+                    fd_max = fd_max > client_sock ? fd_max : client_sock;
+                    printf("new fd_max :%d\n", fd_max);
                 }
                 else
                 {
@@ -98,6 +101,7 @@ int main(int argc, char *argv[])
                     write(i, buf, strlen(buf));
                     printf("send message back successfully\n");
                     close(i);
+                    FD_CLR(i, &readers);
                 }
             }
         }
